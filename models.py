@@ -1,4 +1,7 @@
-"""\n数据库模型模块\n使用 SQLite 管理用户、分数和登录记录\n"""
+"""
+数据库模型模块
+使用 SQLite 管理用户、分数和登录记录
+"""
 
 import sqlite3
 import os

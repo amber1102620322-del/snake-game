@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}🐍 游戏 - 贪吃蛇{% endblock %}
+
+{% block content %}
+<div class="game-container fade-in">
+    <!-- 游戏信息栏 -->
+    <div class="game-info-bar stagger-1 fade-in">
+        <div class="game-stat">
+            <div class="game-stat-value" id="currentScore">0</div>
+            <div class="game-stat-label">当前分数</div>
+        </div>
+        <div class="game-stat">
+            <div class="game-stat-value best" id="bestScore">0</div>
+            <div class="game-stat-label">最高分</div>
+        </div>
+        <div class="game-stat">
+            <div class="game-stat-value" id="gameLength" style="color:var(--candy-blue-dark);">3</div>
+            <div class="game-stat-label">蛇身长度</div>
+        </div>
+    </div>
+
+    <!-- 游戏画布 -->
+    <div class="game-canvas-wrapper stagger-2 fade-in">
+        <canvas id="gameCanvas" width="500" height="500"></canvas>
+
+        <!-- 开始/结束遮罩 -->
+        <div class="game-overlay" id="gameOverlay">
+            <div class="snake-decoration" style="font-size:4rem;">🐍</div>
+            <h2 id="overlayTitle">准备开始</h2>
+            <p id="overlaySubtitle">按 空格键 或点击下方按钮开始游戏</p>
+            <div class="final-score" id="finalScore" style="display:none;"></div>
+            <button class="btn btn-primary btn-lg" id="startBtn" onclick="startGame()">
+                🎮 开始游戏
+            </button>
+        </div>
+    </div>
+
+    <!-- 操作提示 -->
+    <div class="game-controls-hint stagger-3 fade-in">
+        <div class="key-hint">
+            <span class="key">↑</span>
+            <span class="key">↓</span>
+            <span class="key">←</span>
+            <span class="key">→</span>
+            <span>方向控制</span>
+        </div>
+        <div class="key-hint">
+            <span class="key" style="width:auto; padding:0 12px;">Space</span>
+            <span>暂停/继续</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/game.js"></script>
+{% endblock %}

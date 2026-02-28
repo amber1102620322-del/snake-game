@@ -1,4 +1,7 @@
-"""\n贪吃蛇网页游戏 - Flask 主应用\n提供用户认证、游戏分数记录和排行榜等 API\n"""
+"""
+贪吃蛇网页游戏 - Flask 主应用
+提供用户认证、游戏分数记录和排行榜等 API
+"""
 
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash

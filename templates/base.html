@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="贪吃蛇网页游戏 - 清新可爱的休闲游戏体验">
+    <title>{% block title %}🐍 贪吃蛇{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <span class="snake-icon">🐍</span>
+            <span>贪吃蛇</span>
+        </a>
+        <ul class="navbar-nav" id="navLinks">
+            <li><a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">🏠 首页</a></li>
+            <li><a href="/game" class="nav-link {% if request.path == '/game' %}active{% endif %}">🎮 开始游戏</a></li>
+            <li><a href="/records" class="nav-link {% if request.path == '/records' %}active{% endif %}">📊 数据中心</a></li>
+        </ul>
+        <div id="navUser">
+            <!-- 由 JS 动态填充 -->
+        </div>
+    </nav>
+
+    <!-- 消息提示 -->
+    <div class="toast" id="toast"></div>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- 基础脚本 -->
+    <script>
+        // 全局工具函数
+
+        // 显示消息提示
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast toast-' + type + ' show';
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // 检查登录状态并更新导航栏
+        async function checkAuth() {
+            try {
+                const res = await fetch('/api/me');
+                const data = await res.json();
+                const navUser = document.getElementById('navUser');
+
+                if (data.logged_in) {
+                    const initial = data.username.charAt(0).toUpperCase();
+                    navUser.innerHTML = `
+                        <div class="nav-user">
+                            <div class="avatar">${initial}</div>
+                            <span>${data.username}</span>
+                        </div>
+                        <button class="btn-logout" onclick="logout()">登出</button>
+                    `;
+                    return data;
+                } else {
+                    navUser.innerHTML = `
+                        <a href="/login" class="btn btn-primary" style="padding:8px 20px; font-size:0.9rem;">登录</a>
+                    `;
+                    return null;
+                }
+            } catch (e) {
+                console.error('检查登录状态失败', e);
+                return null;
+            }
+        }
+
+        // 登出
+        async function logout() {
+            await fetch('/api/logout', { method: 'POST' });
+            showToast('已成功登出');
+            setTimeout(() => { window.location.href = '/'; }, 800);
+        }
+
+        // 页面加载时检查登录状态
+        document.addEventListener('DOMContentLoaded', checkAuth);
+    </script>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

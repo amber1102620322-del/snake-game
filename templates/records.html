@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}🐍 数据中心 - 贪吃蛇{% endblock %}
+
+{% block content %}
+<div class="fade-in">
+    <h1 style="font-size:1.6rem; font-weight:900; margin-bottom:24px; display:flex; align-items:center; gap:10px;">
+        <span>📊</span> 数据中心
+    </h1>
+
+    <!-- 个人统计 -->
+    <div class="records-stats stagger-1 fade-in">
+        <div class="card stat-card card-green">
+            <div class="stat-icon">🏆</div>
+            <div class="stat-value" id="statBest">-</div>
+            <div class="stat-label">最高分</div>
+        </div>
+        <div class="card stat-card card-blue">
+            <div class="stat-icon">🎮</div>
+            <div class="stat-value" id="statGames">-</div>
+            <div class="stat-label">总场次</div>
+        </div>
+        <div class="card stat-card card-purple">
+            <div class="stat-icon">📅</div>
+            <div class="stat-value" id="statLogins">-</div>
+            <div class="stat-label">登录次数</div>
+        </div>
+    </div>
+
+    <!-- 排行榜 + 个人记录 -->
+    <div class="records-layout">
+        <!-- 排行榜 -->
+        <div class="card card-yellow stagger-2 fade-in">
+            <div class="card-title">
+                <span class="card-icon">🏆</span>
+                排行榜 TOP 20
+            </div>
+            <div id="leaderboardTable">
+                <div style="text-align:center; padding:24px;">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧面板 -->
+        <div>
+            <!-- 个人得分记录 -->
+            <div class="card card-green stagger-3 fade-in" style="margin-bottom:20px;">
+                <div class="card-title">
+                    <span class="card-icon">📈</span>
+                    我的得分记录
+                </div>
+                <div id="myScores">
+                    <div style="text-align:center; padding:24px;">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 登录时间线 -->
+            <div class="card card-blue stagger-4 fade-in">
+                <div class="card-title">
+                    <span class="card-icon">🕐</span>
+                    登录记录
+                </div>
+                <div id="loginTimeline">
+                    <div style="text-align:center; padding:24px;">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/records.js"></script>
+{% endblock %}
