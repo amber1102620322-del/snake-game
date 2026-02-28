@@ -1,0 +1,9 @@
+[project]
+name = "snake-game"
+version = "0.1.0"
+description = "网页版贪吃蛇游戏"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "flask>=3.1.3",
+]
